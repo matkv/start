@@ -6,7 +6,7 @@ Dynamically created startpage / bookmarks page. Practice project for trying out 
 
 - [ ] Create admin page that talks to the Sqlite DB & let's me add categories and bookmarks
 - [ ] Have a button that lets me export the whole bookmarks page to a html file that I can use in matkv.dev
-- [] Play around with the styling more (Tailwind works already)
+- [ ] Play around with the styling more (Tailwind works already)
 
 ## Setup
 
