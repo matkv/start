@@ -1,5 +1,3 @@
-<!-- FOR NOW, THIS IS HARDCODED, SHOULD BE POSSIBLE TO
-     CREATE AND INSERT BOOKSMARKS ON AN ADMIN PAGE THAT ACCESSES THE DB -->
 <section class="mb-8">
     <h2 class="text-2xl font-bold mb-4">Main</h2>
     <div
