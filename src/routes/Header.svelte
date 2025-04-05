@@ -16,7 +16,7 @@
                         ? "page"
                         : undefined}
                 >
-                    <a href="/config">Config</a>
+                    <a href="/config"><b>Config</b></a>
                 </li>
             </ul>
         </div>
