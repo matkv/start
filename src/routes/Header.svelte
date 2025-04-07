@@ -1,5 +1,22 @@
 <script lang="ts">
     import { page } from "$app/state";
+
+    async function handleExportClick() {
+        try {
+            const response = await fetch("/api/export");
+            if (response.ok) {
+                const data = await response.json();
+                alert(data.message); // Display the message from the server
+            } else {
+                console.error(
+                    "Failed to fetch export message:",
+                    response.status,
+                );
+            }
+        } catch (error) {
+            console.error("Error triggering export:", error);
+        }
+    }
 </script>
 
 <nav class=" bg-white border-gray-200 dark:bg-gray-900">
@@ -10,7 +27,14 @@
             ><a href="/">Bookmarks</a></span
         >
         <div class="w-full md:w-auto">
-            <ul>
+            <ul class="flex space-x-4">
+                <li
+                    aria-current={page.url.pathname === "/export"
+                        ? "page"
+                        : undefined}
+                >
+                    <a href="#" on:click={handleExportClick}><b>Export</b></a>
+                </li>
                 <li
                     aria-current={page.url.pathname === "/config"
                         ? "page"
