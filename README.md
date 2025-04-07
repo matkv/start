@@ -23,6 +23,18 @@ Settings I used during the setup:
 
 ## Running the app
 
+If not done yet, set a DATABASE_URL in a .env file:
+
+```
+DATABASE_URL="file:./db.sqlite"
+```
+
+Then push the schema to the DB:
+
+```bash
+npm run db:push
+```
+
 Running the svelte app:
 
 ```bash
