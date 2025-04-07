@@ -27,7 +27,7 @@
             >
                 {#each item.bookmarks as bookmark}
                     <a
-                        href={bookmark.url}
+                        href="https://{bookmark.url}"
                         class="block p-4 bg-gray-900 rounded-lg shadow hover:bg-gray-800"
                     >
                         <h3 class="text-lg font-semibold">{bookmark.title}</h3>
