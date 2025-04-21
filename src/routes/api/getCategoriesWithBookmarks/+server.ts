@@ -4,30 +4,36 @@ import { bookmarks, categories } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
 
 export async function GET() {
-    // Fetch categories with bookmarks
-    const categoriesWithBookmarks = await db
+    const rows = await db
         .select()
         .from(categories)
-        .leftJoin(bookmarks, eq(bookmarks.categoryId, categories.id))
-        .execute();
+        .leftJoin(bookmarks, eq(bookmarks.categoryId, categories.id));
 
-    // Group bookmarks by category
-    const groupedCategories = categoriesWithBookmarks.reduce((acc, item) => {
-        // Find or create the category entry in the accumulator
-        const category = acc.find((cat) => cat.id === item.categories.id);
-        if (!category) {
-            acc.push({
-                id: item.categories.id,
-                name: item.categories.name,
-                bookmarks: [item.bookmarks],
+    const grouped = new Map<
+        number,
+        { id: number; name: string; bookmarks: { title: string; url: string; description: string | null }[] }
+    >();
+
+    for (const row of rows) {
+        const cat = row.categories;
+        const bm = row.bookmarks;
+
+        if (!grouped.has(cat.id)) {
+            grouped.set(cat.id, {
+                id: cat.id,
+                name: cat.name,
+                bookmarks: [],
             });
-        } else {
-            // Add bookmark to the existing category
-            category.bookmarks.push(item.bookmarks);
         }
-        return acc;
-    }, []);
 
-    // Return the grouped categories with bookmarks
-    return json(groupedCategories);
+        if (bm && bm.id) {
+            grouped.get(cat.id)?.bookmarks.push({
+                title: bm.title,
+                url: bm.url,
+                description: bm.description,
+            });
+        }
+    }
+
+    return json([...grouped.values()]);
 }
